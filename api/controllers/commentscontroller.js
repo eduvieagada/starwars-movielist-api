@@ -5,10 +5,12 @@ const addNewComment = (req, res) => {
     const comment = req.body;
 
     // validate request
-    if (!comment || !comment.ipAddress || !comment.text || !comment.movieId)
-        return res.status(400).json({ error: "Empty entries not allowed"});
-    if (comment.text.length > 500)
-        return res.status(400).json({ error: "comment exceeded the maximum length. Maximum size is 500 characters"});
+    const result = validateInput(comment);
+
+    if (!result.isValid) {
+        return res.status(400).json(result);
+    }
+
     var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     comment["ipAddress"] = ip;
     commentService.addNewComment(comment)
@@ -26,6 +28,15 @@ const getAllComments = (req, res) => {
             console.log(error);
             res.status(500);
         });
+}
+
+const validateInput = (comment) => {
+    if (!comment || !comment.ipAddress || !comment.text || !comment.movieId)
+        return { isValid: false, error: "Empty entries not allowed"};
+    if (comment.text.length > 500)
+        return { isValid: false, error: "comment exceeded the maximum length. Maximum size is 500 characters"};
+
+    return { isValid: true };
 }
 
 module.exports = {
