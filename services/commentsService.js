@@ -26,7 +26,18 @@ const getCommentCountPerMovie = () => {
     });
 }
 
+const getAllComments = async () => {
+    try {
+        const comments = await Comment.findAll({ raw: true, order: [['createdAt', 'DESC']]});
+        return comments
+    } catch (error) {
+        throw error;
+    }
+    
+}
+
 module.exports = {
     addNewComment,
-    getCommentCountPerMovie
+    getCommentCountPerMovie,
+    getAllComments
 };

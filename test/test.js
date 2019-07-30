@@ -30,6 +30,17 @@ describe('Comment Service', () => {
                 assert.fail();
             }
         })
+    });
+
+    describe('getAllComments', () => {
+        it('should get all comments', async () => {
+            try {
+                const comments = await CommentService.getAllComments();
+                assert.notEqual(comments, undefined);
+            } catch (error) {
+                assert.fail();
+            }
+        })
     })
 });
 
@@ -44,6 +55,18 @@ describe('Movie Service', () => {
                 assert.fail();
             }
             
-        });
+        }).timeout(10000);
     });
+
+    describe('getMoviesWithComments', () => {
+        it('it should return a list of movies with number of comments', async () => {
+            try {
+                const movies = await MovieService.getMoviesWithComments();
+                assert.notEqual(movies, undefined);
+            } catch(error) {
+                console.log('Error: ', error);
+                assert.fail();
+            }
+        }).timeout(10000);
+    })
 });
