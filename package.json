@@ -16,7 +16,8 @@
     "morgan": "~1.9.1",
     "pug": "^2.0.4",
     "request": "^2.88.0",
-    "sequelize": "^5.11.0"
+    "sequelize": "^5.11.0",
+    "swagger-ui-express": "^4.0.7"
   },
   "devDependencies": {
     "mocha": "^6.2.0",
