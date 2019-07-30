@@ -50,6 +50,29 @@
           }
         }
       },
+      "/people": {
+        "get": {
+          "tags": [
+            "people"
+          ],
+          "description": "view list of characters in star wars movies",
+          "parameters": [
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+                "description": "list of people",
+                "schema": 
+                    {
+                        "$ref": "#/definitions/People"
+                    }
+                
+            }
+          }
+        }
+      },
       "/comments": {
         "get": {
           "tags": [
@@ -138,6 +161,22 @@
         }
       },
       "CommentRequest": {
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "movieId": {
+            "type": "string"
+          },
+          "createdAt": {
+              "type": "date"
+          },
+          "updatedAt": {
+              "type": "date"
+          }
+        }
+      },
+      "People": {
         "properties": {
           "text": {
             "type": "string"
