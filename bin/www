@@ -8,13 +8,6 @@ require('dotenv').config();
 var app = require('../app');
 var debug = require('debug')('movielist:server');
 var http = require('http');
-const numCPUs = require('os').cpus.length;
-const cluster = require('cluster');
-
-/**
- * check if environment is production
- */
-const isProduction = process.env.NODE_ENV === 'production';
 
 /**
  * Get port from environment and store in Express.
@@ -27,18 +20,6 @@ app.set('port', port);
  * check if the cluster is master and create worker processes
  */
 
- if (cluster.isMaster && isProduction) {
-   debug(`Master ${process.pid} is running`);
-
-   for (let i = 0; i < numCPUs; i++) {
-     cluster.fork();
-   }
-
-   cluster.on('exit', (worker, code, signal) => {
-     debug(`worker ${worker.process.pid} died`);
-     cluster.fork();  // create a new worker if worker is dead
-   });
- } else {
     /**
      * Create HTTP server.
      */
@@ -52,7 +33,7 @@ app.set('port', port);
     server.listen(port);
     server.on('error', onError);
     server.on('listening', onListening);
- }
+ 
 
 
 
