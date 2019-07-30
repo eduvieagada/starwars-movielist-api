@@ -1,9 +1,9 @@
 const apiConfig = require('../config/api-config');
-const apiClient = require('../utils/apiClient');
+const apiHelper = require('../utils/apiHelper');
 
 const getPeople = async (sortParam, genderFilter) => {
     try {
-        let data = await apiClient.get(apiConfig.peopleUrl);
+        let data = await apiHelper.get(apiConfig.peopleUrl);
 
         data = JSON.parse(data);
 
@@ -26,7 +26,8 @@ const getPeople = async (sortParam, genderFilter) => {
             people = people.filter(p => p.gender === genderFilter);
         }
 
-        const totalHeight = `${parseFloat(people.reduce((a, b) => a + b)) / 30.48} ft`;
+
+        const totalHeight = `${parseFloat(people.map(p => p.height).reduce((a, b) => parseFloat(a) + parseFloat(b))) / 30.48} ft`;
 
         return { count: people.length, totalHeight, people };
 

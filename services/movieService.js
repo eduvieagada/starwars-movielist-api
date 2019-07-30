@@ -1,11 +1,10 @@
-const request = require('request');
 const apiConfig = require('../config/api-config');
 const commentsService = require('./commentsService');
-const apiClient = require('../utils/apiClient');
+const apiHelper = require('../utils/apiHelper');
 
 const getAllMoviesFromApi = async () => {
     try {
-        return await apiClient.get(apiConfig.moviesUrl);
+        return await apiHelper.get(apiConfig.moviesUrl);
     } catch (error) {
         throw error;
     }    
