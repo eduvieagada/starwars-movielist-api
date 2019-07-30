@@ -1,21 +1,14 @@
 const request = require('request');
 const apiConfig = require('../config/api-config');
 const commentsService = require('./commentsService');
+const apiClient = require('../utils/apiClient');
 
-const getAllMoviesFromApi = () => {
-    return new Promise((resolve, reject) => {
-        const requestOptions = {
-            url: apiConfig.moviesUrl,
-            method: 'GET',
-        };
-        request(requestOptions, (err, res, body) => {
-            if (res && res.statusCode != 200)
-                reject(err, body);
-            else
-                resolve(body);
-        });
-    });
-    
+const getAllMoviesFromApi = async () => {
+    try {
+        return await apiClient.get(apiConfig.moviesUrl);
+    } catch (error) {
+        throw error;
+    }    
 }
 
 const getMoviesWithComments = async () => {

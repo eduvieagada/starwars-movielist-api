@@ -4,6 +4,7 @@ sequelize.sync().then(() => 'Database synced successfully');
 const assert = require('assert');
 const CommentService = require('../services/commentsService');
 const MovieService = require('../services/movieService');
+const PeopleService = require('../services/peopleservice');
 
 describe('Comment Service', () => {
     describe('addNewComment', () => {
@@ -69,4 +70,18 @@ describe('Movie Service', () => {
             }
         }).timeout(10000);
     })
+});
+
+describe('People Service', () => {
+    describe('getPeople', () => {
+        it('it should return a list of people with metadata', async () => {
+            try {
+                const people = await PeopleService.getPeople();
+                assert.notEqual(people, undefined);
+            } catch(error) {
+                console.log(error);
+                assert.fail();
+            }
+        }).timeout(100000);
+    });
 });

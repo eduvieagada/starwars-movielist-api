@@ -10,8 +10,11 @@ Comment.init({
         allowNull: false
     },
     text: {
-        type: Sequelize.TEXT,
-        allowNull: false
+        type: Sequelize.STRING(500),
+        allowNull: false,
+        validate: {
+            len: [1, 500]
+        }
     },
     movieId: {
         type: Sequelize.INTEGER,
