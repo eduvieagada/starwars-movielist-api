@@ -7,6 +7,7 @@ const sequelize = require('./db/sequelize-config');
 
 var indexRouter = require('./routes/index');
 const apiRouter = require('./api/routes/index');
+const swaggerUi = require('swagger-ui-express'), swaggerDocument = require('./swagger.json');
 
 sequelize.sync().then(() => 'Database synced successfully');
 var app = express();
@@ -21,6 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler

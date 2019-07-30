@@ -1,0 +1,165 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Star Wars Movie List API",
+      "description": "Yet Another Node.js MovieList Application API",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+      {
+        "name": "Movies",
+        "description": "API for movies in the system"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/movies": {
+        "get": {
+          "tags": [
+            "movies"
+          ],
+          "description": "view list of movies",
+          "parameters": [
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+                "description": "list of movies",
+                "schema": 
+                    {
+                        "$ref": "#/definitions/Movies"
+                    }
+                
+            }
+          }
+        }
+      },
+      "/comments": {
+        "get": {
+          "tags": [
+            "Comments"
+          ],
+          "summary": "Get a list of avaliable comments",
+          "responses": {
+            "200": {
+                "description": "list of available comments",
+                "schema": {
+                    "$ref": "#/definitions/Comment"
+                }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new comment",
+          "tags": [
+            "Comment"
+          ],
+          "parameters": [
+            {
+              "name": "comment",
+              "in": "body",
+              "description": "Comment with new values of properties",
+              "schema": {
+                "$ref": "#/definitions/CommentRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User is updated",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Movie": {
+        "properties": {
+          "openingCrawl": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "director": {
+            "type": "string"
+          },
+          "producer": {
+            "type": "string"
+          },
+          "releaseDate": {
+              "type": "date"
+          },
+          "numberOfComments": {
+              "type": "number"
+          }
+        }
+      },
+      "Comment": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "ipAddress": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "movieId": {
+            "type": "string"
+          },
+          "createdAt": {
+              "type": "date"
+          },
+          "updatedAt": {
+              "type": "date"
+          }
+        }
+      },
+      "CommentRequest": {
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "movieId": {
+            "type": "string"
+          },
+          "createdAt": {
+              "type": "date"
+          },
+          "updatedAt": {
+              "type": "date"
+          }
+        }
+      },
+      "Movies": {
+          "type": "array",
+          "$ref": "#/definitions/Movie"
+      },
+      "Comments": {
+          "type":"array",
+          "$ref": "#/definitions/Comment"
+      }
+    }
+  }

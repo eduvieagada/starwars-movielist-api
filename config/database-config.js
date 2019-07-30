@@ -9,10 +9,10 @@ if (process.env.NODE_ENV === 'development') {
     }
 } else {
     module.exports = {
-        database: '',
-        username: '',
-        password: '',
-        host: '',
-        dialect: ''
+        database: process.env.DATABASE_NAME,
+        username: process.env.DATABASE_USERNAME,
+        password: process.env.DATABASE_PASSWORD,
+        host: process.env.DATABASE_HOST,
+        dialect: process.env.SEQUELIZE_DIALECT
     }
 }
