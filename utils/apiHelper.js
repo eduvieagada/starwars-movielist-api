@@ -6,8 +6,10 @@ const get = (url) =>  new Promise((resolve, reject) => {
         method: 'GET',
     };
 
+    const OK = 200;
+
     request(requestOptions, (err, res, body) => {
-        if (res && res.statusCode != 200)
+        if (res && res.statusCode != OK)
             reject(err, body);
         else
             resolve(body);
