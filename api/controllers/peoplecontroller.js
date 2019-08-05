@@ -4,7 +4,6 @@ const getPeople = async (req, res) => {
     try {
         const sortParam = req.query.sort;
         const filterParam = req.query.filter;
-
         const people = await peopleService.getPeople(sortParam, filterParam);
 
         return people ? res.status(200).json(people) : res.status(404);
