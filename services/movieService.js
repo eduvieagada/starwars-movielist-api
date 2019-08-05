@@ -1,6 +1,7 @@
-const apiConfig = require('../config/api-config');
-const commentsService = require('./commentsService');
+const apiConfig = require('../config/apiConfig');
+const commentsService = require('./commentService');
 const apiHelper = require('../utils/apiHelper');
+const debug = require('debug');
 
 const getAllMoviesFromApi = async () => {
     try {
@@ -8,6 +9,30 @@ const getAllMoviesFromApi = async () => {
     } catch (error) {
         throw error;
     }    
+}
+
+const isNumber = num => !isNaN(parseFloat(num)) && isFinite(num);
+
+const getMovieById = async id => {
+    try {
+        console.log(typeof(id));
+        if (!id || !isNumber(id))
+            throw new Error('invalid id passed');
+
+        const { results } = JSON.parse(await getAllMoviesFromApi());
+
+        const moviesById = results.filter(m => m.episode_id === parseInt(id));
+
+        if (moviesById.length < 1)
+            throw new Error('movie does not exist');
+
+        return moviesById[0];
+
+    } catch(error) {
+        console.log(error);
+        debug(error);
+        throw new Error('unable to fetch data');
+    }
 }
 
 const getMoviesWithComments = async () => {
@@ -30,15 +55,17 @@ const getMoviesWithComments = async () => {
             return new Date(a.releaseDate) > new Date(b.releaseDate);
         });
 
-        return movies
+        return movies;
     } catch(error) {
-        console.log(error);
+        debug(error);
         throw new Error('unable to fetch data');
-    }
-    
+    }    
 }
+
+
 
 module.exports = {
     getAllMoviesFromApi,
-    getMoviesWithComments
+    getMoviesWithComments,
+    getMovieById
 }

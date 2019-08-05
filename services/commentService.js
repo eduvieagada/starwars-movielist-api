@@ -1,16 +1,16 @@
-const Comment = require('../db/models/comments');
-const sequelize = require('../db/sequelize-config');
+const Comment = require('../db/models/comment');
+const sequelize = require('../db/sequelizeConfig');
 
 const addNewComment = async (comment) => {
-    try {
+    try {        
         return await Comment.create({
             ipAddress: comment.ipAddress,
             text: comment.text,
             movieId: comment.movieId
         });
-    } catch(error) {
-        console.log(error);
-        throw error;
+    } catch(err) {
+        console.log(err);
+        throw err;
     }
 };
 
@@ -21,9 +21,9 @@ const getCommentCountPerMovie = async () => {
             group: ['movieId'],
             raw: true
         });
-    } catch (error) {
-        console.log(error);
-        throw error;
+    } catch (err) {
+        console.log(err);
+        throw err;
     }
 }
 
@@ -31,9 +31,9 @@ const getAllComments = async () => {
     try {
         const comments = await Comment.findAll({ raw: true, order: [['createdAt', 'DESC']]});
         return comments
-    } catch (error) {
-        console.log(error);
-        throw error;
+    } catch (err) {
+        console.log(err);
+        throw err;
     }
     
 }

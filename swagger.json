@@ -9,7 +9,7 @@
         "url": "https://opensource.org/licenses/MIT"
       }
     },
-    "host": "https://starwars-movielist-api.herokuapp.com",
+    "host": "starwars-movielist-api.herokuapp.com",
     "basePath": "/api",
     "tags": [
       {
@@ -18,7 +18,7 @@
       }
     ],
     "schemes": [
-      "http"
+      "https"
     ],
     "consumes": [
       "application/json"
@@ -57,6 +57,24 @@
           ],
           "description": "view list of characters in star wars movies",
           "parameters": [
+            {
+              "in": "query",
+              "name": "sort",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "sort by name, gender and height"
+            },
+            {
+              "in": "query",
+              "name": "filter",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "description": "filter by gender"
+            }
           ],
           "produces": [
             "application/json"
@@ -105,9 +123,9 @@
           ],
           "responses": {
             "200": {
-              "description": "User is updated",
+              "description": "Comment is created",
               "schema": {
-                "$ref": "#/definitions/User"
+                "$ref": "#/definitions/Comment"
               }
             }
           }
@@ -178,16 +196,34 @@
       },
       "People": {
         "properties": {
-          "text": {
+          "name": {
             "type": "string"
           },
-          "movieId": {
+          "height": {
             "type": "string"
           },
-          "createdAt": {
+          "mass": {
+            "type": "string"
+          },
+          "hairColor": {
+            "type": "string"
+          },
+          "skinColor": {
+            "type": "string"
+          },
+          "eyeColor": {
+            "type": "string"
+          },
+          "birthYear": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "created": {
               "type": "date"
           },
-          "updatedAt": {
+          "edited": {
               "type": "date"
           }
         }
