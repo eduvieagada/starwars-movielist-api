@@ -1,10 +1,11 @@
 require('dotenv').config();
-const sequelize = require('../db/sequelize-config');
+const sequelize = require('../db/sequelizeConfig');
 sequelize.sync().then(() => 'Database synced successfully');
 const assert = require('assert');
-const CommentService = require('../services/commentsService');
+const CommentService = require('../services/commentService');
 const MovieService = require('../services/movieService');
-const PeopleService = require('../services/peopleservice');
+const PeopleService = require('../services/peopleService');
+const debug = require('debug');
 
 describe('Comment Service', () => {
     describe('addNewComment', () => {
@@ -13,13 +14,14 @@ describe('Comment Service', () => {
                 const comment = await CommentService.addNewComment({
                     ipAddress: '127.0.0.1',
                     text: 'test text',
-                    movieId: '0'
+                    movieId: '2'
                 });
                 assert.notEqual(comment, undefined)
-            } catch (error) {
+            } catch (err) {
+                console.log(err);
                 assert.fail();
             }
-        });
+        }).timeout(10000);
     });
 
     describe('getCommentCountPerMovie', () => {
@@ -69,7 +71,19 @@ describe('Movie Service', () => {
                 assert.fail();
             }
         }).timeout(10000);
-    })
+    });
+
+    describe('getMovieById', () => {
+        it('it should return a movie with an id that matches the id passed', async () => {
+            try {
+                const movie = await MovieService.getMovieById(4);
+                assert.notEqual(movie, undefined);
+            } catch(error) {
+                console.log(error);
+                assert.fail();
+            }
+        }).timeout(10000);
+    });
 });
 
 describe('People Service', () => {

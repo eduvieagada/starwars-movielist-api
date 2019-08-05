@@ -1,14 +1,14 @@
 const express = require('express');
-const moviesController = require('../controllers/moviescontroller');
-const commentsController = require('../controllers/commentscontroller');
-const peopleController = require('../controllers/peoplecontroller');
+const movieController = require('../controllers/movieController');
+const commentController = require('../controllers/commentController');
+const peopleController = require('../controllers/peopleController');
 const router = express.Router();
 
 
-router.get('/movies', moviesController.allMovies);
+router.get('/movies', movieController.allMovies);
 router.route('/comments')
-    .get(commentsController.getAllComments)
-    .post(commentsController.addNewComment);
+    .get(commentController.getAllComments)
+    .post(commentController.addNewComment);
 router.get('/people', peopleController.getPeople);
 
 

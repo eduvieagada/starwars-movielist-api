@@ -1,4 +1,4 @@
-const apiConfig = require('../config/api-config');
+const apiConfig = require('../config/apiConfig');
 const apiHelper = require('../utils/apiHelper');
 
 const getPeople = async (sortParam, genderFilter) => {
@@ -7,29 +7,44 @@ const getPeople = async (sortParam, genderFilter) => {
 
         data = JSON.parse(data);
 
-        let people = data.results;
+        let rawPeopleData = data.results;
         if (sortParam === 'name') {
-            people = people.sort((a, b) => {
+            rawPeopleData = rawPeopleData.sort((a, b) => {
                 a.name > b.name
             });
         } else if (sortParam === 'gender') {
-            people = people.sort((a, b) => {
+            rawPeopleData = rawPeopleData.sort((a, b) => {
                 return a.gender > b.gender;
             });
         } else if (sortParam === 'height') {
-            people = people.sort((a, b) => {
-                return a.height > b.height;
+            rawPeopleData = rawPeopleData.sort((a, b) => {
+                return parseFloat(a.height) > parseFloat(b.height);
             });
         }
 
         if (genderFilter === 'male' || genderFilter === 'female') {
-            people = people.filter(p => p.gender === genderFilter);
+            rawPeopleData = rawPeopleData.filter(p => p.gender === genderFilter);
         }
 
+        const totalHeight = parseFloat(rawPeopleData.map(p => p.height).reduce((a, b) => parseFloat(a) + parseFloat(b)));
 
-        const totalHeight = `${parseFloat(people.map(p => p.height).reduce((a, b) => parseFloat(a) + parseFloat(b))) / 30.48} ft`;
+        const totalHeightInFeet = `${(totalHeight / 30.48).toFixed(2)} ft`;
+        const totalHeightInCm = `${totalHeight} cm`;
 
-        return { count: people.length, totalHeight, people };
+        const people = rawPeopleData.map(p => ({
+            name: p.name,
+            height: p.height,
+            mass: p.mass,
+            hairColor: p.hair_color,
+            skinColor: p.skin_color,
+            eyeColor: p.eye_color,
+            birthYear: p.birth_year,
+            gender: p.gender,
+            created: p.created,
+            edited: p.edited
+        }));
+
+        return { count: rawPeopleData.length, totalHeightInFeet, totalHeightInCm, people };
 
     } catch (error) {
         console.log(error);

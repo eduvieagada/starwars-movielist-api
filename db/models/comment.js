@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelizeConfig = require('../sequelize-config');
+const sequelizeConfig = require('../sequelizeConfig');
 
 const Model = Sequelize.Model;
 class Comment extends Model {}
