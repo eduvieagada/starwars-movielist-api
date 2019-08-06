@@ -47,7 +47,8 @@ const getMoviesWithComments = async () => {
                 director: m.director,
                 producer: m.producer,
                 releaseDate: m.release_date,
-                numberOfComments: commentCount === undefined ? 0 : commentCount.count
+                numberOfComments: commentCount === undefined ? 0 : commentCount.count,
+                movieId: m.episode_id
             }
         });
 
