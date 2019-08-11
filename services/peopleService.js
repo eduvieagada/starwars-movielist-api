@@ -28,8 +28,15 @@ const getPeople = async (sortParam, genderFilter) => {
 
         const totalHeight = parseFloat(rawPeopleData.map(p => p.height).reduce((a, b) => parseFloat(a) + parseFloat(b)));
 
-        const totalHeightInFeet = `${(totalHeight / 30.48).toFixed(2)} ft`;
+        const totalHeightInFeet = Math.floor((totalHeight / 30.48));
+        const remainderInInches = (totalHeight % 30.48).toFixed(2);
         const totalHeightInCm = `${totalHeight} cm`;
+
+        let totalHeightInFeetAndInches = `${totalHeightInFeet} ft`;
+
+        if (remainderInInches > 0) {
+            totalHeightInFeetAndInches += ` and ${remainderInInches} inches`;
+        }
 
         const people = rawPeopleData.map(p => ({
             name: p.name,
@@ -44,7 +51,7 @@ const getPeople = async (sortParam, genderFilter) => {
             edited: p.edited
         }));
 
-        return { count: rawPeopleData.length, totalHeightInFeet, totalHeightInCm, people };
+        return { count: rawPeopleData.length, totalHeightInFeetAndInches, totalHeightInCm, people };
 
     } catch (error) {
         console.log(error);

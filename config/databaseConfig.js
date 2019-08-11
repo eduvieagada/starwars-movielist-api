@@ -2,10 +2,10 @@
 if (process.env.NODE_ENV === 'development') {
     module.exports = {
         database: 'MovieList',
-        username: 'sa',
+        username: 'root',
         password: 'password@1',
         host: 'localhost',
-        dialect: 'mssql'
+        dialect: 'mysql'
     }
 } else {
     module.exports = {

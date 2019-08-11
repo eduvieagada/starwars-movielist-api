@@ -17,12 +17,12 @@
     "mysql": "^2.17.1",
     "mysql2": "^1.6.5",
     "pug": "^2.0.4",
+    "redis": "^2.8.0",
     "request": "^2.88.0",
     "sequelize": "^5.11.0",
     "swagger-ui-express": "^4.0.7"
   },
   "devDependencies": {
-    "mocha": "^6.2.0",
-    "tedious": "^6.2.0"
+    "mocha": "^6.2.0"
   }
 }
