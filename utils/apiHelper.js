@@ -5,8 +5,13 @@ const redisConfig = require('../config/redisConfig');
 const get = (url) =>  new Promise((resolve, reject) => {
     const redisPort = redisConfig.port;
     const redisHost = redisConfig.host;
+    const redisPassword = redisConfig.password;
 
-    const redisClient = redis.createClient(redisPort, redisHost);
+    const redisClient = redis.createClient({
+        port: redisPort,
+        host: redisHost,
+        password: redisPassword
+    });
     redisClient.on('error', err => reject(err));
 
     const requestOptions = {
