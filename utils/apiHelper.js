@@ -5,7 +5,7 @@ const redisConfig = require('../config/redisConfig');
 const get = (url) =>  new Promise((resolve, reject) => {
     const redisPort = redisConfig.port;
 
-    const redisClient = redis.createClient(redisPort);
+    const redisClient = redis.createClient(redisPort, 'localhost');
     redisClient.on('error', err => reject(err));
 
     const requestOptions = {
