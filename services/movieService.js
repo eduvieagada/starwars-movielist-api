@@ -1,7 +1,6 @@
 const apiConfig = require('../config/apiConfig');
 const commentsService = require('./commentService');
 const apiHelper = require('../utils/apiHelper');
-const debug = require('debug');
 
 const getAllMoviesFromApi = async () => {
     try {
@@ -30,7 +29,6 @@ const getMovieById = async id => {
 
     } catch(error) {
         console.log(error);
-        debug(error);
         throw new Error('unable to fetch data');
     }
 }
@@ -58,7 +56,6 @@ const getMoviesWithComments = async () => {
 
         return movies;
     } catch(error) {
-        debug(error);
         throw new Error('unable to fetch data');
     }    
 }
