@@ -35,7 +35,7 @@ const getPeople = async (sortParam, genderFilter) => {
         let totalHeightInFeetAndInches = `${totalHeightInFeet} ft`;
 
         if (remainderInInches > 0) {
-            totalHeightInFeetAndInches += ` ${remainderInInches} inches`;
+            totalHeightInFeetAndInches += ` and ${remainderInInches} inches`;
         }
 
         const people = rawPeopleData.map(p => ({
