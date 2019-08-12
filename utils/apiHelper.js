@@ -1,25 +1,13 @@
 const request = require('request');
-const redis = require('redis');
-const redisConfig = require('../config/redisConfig');
+const cacheHelper = require('./cacheHelper');
 
 const get = (url) =>  new Promise((resolve, reject) => {
-    const redisPort = redisConfig.port;
-    const redisHost = redisConfig.host;
-    const redisPassword = redisConfig.password;
-
-    const redisClient = redis.createClient({
-        port: redisPort,
-        host: redisHost,
-        password: redisPassword
-    });
-    redisClient.on('error', err => reject(err));
-
     const requestOptions = {
         url: url,
         method: 'GET',
     };
 
-    redisClient.get(url, (_err, result) => {
+    cacheHelper.get(url).then(result => {
         if (result) {
             resolve(JSON.parse(result));
         } else {
@@ -29,14 +17,13 @@ const get = (url) =>  new Promise((resolve, reject) => {
                 if (res && res.statusCode != OK)
                     reject(err, body);
                 else {
-                    const cacheExpiresIn = redisConfig.expiresIn;
-
-                    redisClient.setex(url, cacheExpiresIn, JSON.stringify(body))
+                    cacheHelper.save(url, body);
                     resolve(body);
                 }
             });
         }
-    });   
+    })
+    .catch(err => reject(err));  
 });
 
 

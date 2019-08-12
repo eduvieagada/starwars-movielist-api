@@ -4,7 +4,7 @@ if (process.env.NODE_ENV === 'development') {
         port: 6379,
         expiresIn: 604800,
         host: 'localhost',
-        password: ''
+        password: undefined
     }
 } else {
     module.exports = {
