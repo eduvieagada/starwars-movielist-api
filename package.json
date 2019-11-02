@@ -19,7 +19,7 @@
     "pug": "^2.0.4",
     "redis": "^2.8.0",
     "request": "^2.88.0",
-    "sequelize": "^5.11.0",
+    "sequelize": "^5.15.1",
     "swagger-ui-express": "^4.0.7"
   },
   "devDependencies": {
